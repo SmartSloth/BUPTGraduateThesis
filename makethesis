@@ -27,7 +27,7 @@ MAINMATTERS=("ch_intro" "ch_concln")
 DRIVER="xetex"
 # Bib type to construct bibliography.
 # 'chapbib' for bib per chapter; 'allbib' for bib in thesis end.
-BIBTYPE="chapbib"
+allbib="chapbib"
 # --------------------------------------------------------------------------
 # Function: Clearance
 # TMP File Clearance
@@ -72,7 +72,7 @@ function thesis()
     echo =
     echo ===========================================
     echo Double check above configurations! Press anykey to continue, CTRL+C to stop!
-    read -n1
+    # read -n1
     # Check the integrity of the installation.
     echo Checking Existence of Essential Files...
     if [ -f "${PROJECT}.cls" -a -f "${PROJECT}.cfg" -a -f "${PROJECT}.bst" ]; then
@@ -89,7 +89,7 @@ function thesis()
     # Generate the thesis PDF according to different configurations.
     if [ ${DRIVER} = "xetex" ]; then
         echo Building thesis PDF...
-        xelatex ${TARGET}
+        xelatex -synctex=1 ${TARGET}
         echo Processing BIB files...
         if [ ${BIBTYPE} = "chapbib" ]; then
             for MATTER in ${MAINMATTERS[@]}
@@ -105,8 +105,8 @@ function thesis()
         echo Processing index files...
         makeindex -s ${TARGET}.ist -t ${TARGET}.alg -o ${TARGET}.acr ${TARGET}.acn > /dev/null
         echo Rebuilding to generate cross-reference...
-        xelatex ${TARGET} > /dev/null
-        xelatex ${TARGET} > /dev/null
+        xelatex -synctex=1 ${TARGET} > /dev/null
+        xelatex -synctex=1 ${TARGET} > /dev/null
     else
         echo Engine Undefined!
         exit
