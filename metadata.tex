@@ -57,7 +57,19 @@
 
 %% 中文摘要
 \cabstract{%
-段路由是一种网络层的路由思想，正在越来越多地应用于网络流量调度中。而随着网络中的业务对时延提出了越来越高的要求，网络需要从各个层面考虑时延保障的效果。本文提出了两种算法，第一种段路由航点生成算法将通过基于软件定义网络控制器的集中式算法实现一种网络拓扑层的段路由策略计算，并得出具有一定程度延迟保证效果的段列表，并通过实验验证得到该算法比只使用带宽信息来生成段路由航点列表对服务请求的时延保障效果好了14.7\%。第二个航点路由算法则是以分布式的为主导思想，通过规划节点时延探测的对象、生成基于差分思想分组的时延矩阵、时延矩阵的更新方式以及段路由航点列表的生成方式最终得到具有时延保障效果的段路由列表，并且经过实验验证得出结论，在损失一定网络吞吐量的情况下该算法在保障时延需求方面比使用传统最短路径算法的协议好43.9\%。
+段路由（Segment Routing, SR）是一种网络层的流量调度思想，核心在于用分段的路由目标取代源路由中的逐跳目的标签，其路径编码的方式可以应用于网络编程。段路由正在越来越多地应用于网络流量调度中，而随着网络中的业务对时延提出了越来越高的要求，网络需要从各个层面考虑时延保障的效果，诞生于网络层的段路由技术就非常适合用于进行时延保障。但是目前针对段路由航点列表生成问题的研究目标往往集中在优化带宽使用效率和提高全网吞吐量，导致网络层时延保障的能力不够充足。
+
+针对这一问题，本文基于段路由的架构和设计思想，分别从集中式控制面和分布式控制面提出了两种段路由航点列表生成算法。
+
+% 首先，本文基于段路由的集中式控制方式提出第一种段路由航点生成算法。该算法在传统拓扑抽象的基础上进一步对数据模型进行降维，以最短流量端到端时延和航点列表计算时间复杂度为主要优化目标，最终得出具有延迟保证效果的段路由航点列表。该算法实验对比组是仅使用带宽信息计算段路由航点列表的策略，通过实验验证得到本文提出的集中式算法比对比组在数据中心网络和运营商网络中的流量调度时延，分别降低了8.22\%和3.34\%。
+
+% 然后，本文基于段路由的分布式控制方式提出第二种段路由航点生成算法。该算法首先通过设计了相邻段路由节点发现的算法，用于规划节点时延探测的对象；其次生成差分时延矩阵来保障流量调度目标时延，并设计时延矩阵的更新算法保障网络时延信息可以以分布式的方法被全网段路由节点获取、更新；最后设计了段路由航点列表生成算法使段路由入口节点可以独立计算出具有指定时延保障效果的段路由列表。该算法实验对比组是传统分布式最短路径算法，通过实验验证得到在损失一定网络吞吐量的情况下，本文提出的分布式算法鼻对比组在数据中心网络和运营商网络中的流量调度时延，分别降低了53.3\%和65.6\%。
+
+首先，本文基于段路由的集中式控制方式提出第一种段路由航点生成算法。该算法在传统拓扑抽象的基础上进一步对数据模型进行降维，以最短流量端到端时延和航点列表计算时间复杂度为主要优化目标，最终得出具有延迟保证效果的段路由航点列表。
+
+然后，本文基于段路由的分布式控制方式提出第二种段路由航点生成算法。该算法首先通过设计了相邻段路由节点发现的算法，用于规划节点时延探测的对象；其次生成差分时延矩阵来保障流量调度目标时延，并设计时延矩阵的更新算法保障网络时延信息可以以分布式的方法被全网段路由节点获取、更新；最后设计了段路由航点列表生成算法使段路由入口节点可以独立计算出具有指定时延保障效果的段路由列表。
+
+最后，本文基于可编程的P4软件交换机bmv2进行对上述两种进行实验验证，分别搭建数据中心拓扑和运营商拓扑。将集中式段路由航点生成算法的对照组设置为仅用带宽计算段路由航点列表的算法，通过实验验证得到本文提出的集中式算法比对比组在数据中心网络和运营商网络中的流量调度时延，分别降低了8.22\%和3.34\%；将分布式段路由航点生成算法的对照组设置为分布式最短路径算法，通过实验验证得到在损失一定网络吞吐量的情况下，本文提出的分布式算法鼻对比组在数据中心网络和运营商网络中的流量调度时延，分别降低了53.3\%和65.6\%。实验结果表明，基于时延信息进行段路由航点列表的计算可以降低流量端到端时延，为时延敏感业务提供网络层的技术支持。
 }
 
 %% 中文关键词，关键词之间用 \kwsep 分割
@@ -65,7 +77,15 @@
 
 %% 英文摘要
 \eabstract{%
-Segment Routing is a network layer routing idea that is increasingly being used in network traffic engineering. And as the services in the network put higher and higher demands on the latency, the network needs to consider the effect of latency guarantee from all levels. In this paper, we propose two algorithms, the first of which is a Segment List generation algorithm that uses a centralized algorithm based on a Software Defined Network controller to calculate a Segment Routing policy at the network topology level and derive a Segment List with a certain degree of latency guarantee. The algorithm is experimentally validated to be 14.7\% better than using only bandwidth information to generate a Segment List to guarantee the latency of requests. The second Segment Routing algorithm is based on a distributed approach, which plans the nodes' latency detection objects, generates a latency matrix based on differential grouping, updates the delay matrix, and generates a Segment List to obtain a latency-safe request. The experimental verification concluded that the algorithm is 43.9\% better than the protocol using the traditional shortest path algorithm in terms of securing the delay requirements at a certain loss of network throughput.
+Segment Routing (SR) is a network layer traffic engineering idea, the core of which is to replace the hop-by-hop destination label in the source route with a segmented route destination, and its path encoding can be applied to network programming. Segment routing is increasingly being used in network traffic engineering, and as services in the network place increasing demands on latency, the network needs to consider the effects of latency guarantees at all levels, and segment routing techniques born at the network layer are ideally suited for this purpose. However, current research on the segment routing transpoint list generation problem often focuses on optimizing bandwidth usage efficiency and improving network-wide throughput, resulting in insufficient capacity for delay assurance at the network layer.
+
+To address this problem, this paper proposes two segment routing transpoint list generation algorithms based on the architecture and design ideas of segment routing, from the centralized control plane and the distributed control plane respectively.
+
+Firstly, this paper proposes a first segment routing transpoint generation algorithm based on the centralised control approach of segment routing. The algorithm further reduces the dimensionality of the data model on the basis of the traditional topological abstraction, with the shortest traffic end-to-end delay and the time complexity of transpoint list calculation as the main optimization objectives, and finally arrives at a segment routing transpoint list with delay guarantee effect.
+
+Then, this paper proposes a second segment routing transpoint generation algorithm based on the distributed control method of segment routing. The algorithm firstly designs an algorithm for neighbouring segment routing node discovery, which is used to plan the object of node delay detection; secondly generates a differential delay matrix to guarantee the traffic engineering target delay, and designs an update algorithm of the delay matrix to guarantee that the network delay information can be obtained and updated by the segment routing nodes in a distributed way; finally, the segment routing transpoint list generation algorithm is designed so that the segment routing entry nodes can independently Finally, the segment route transpoint list generation algorithm is designed so that the segment route entry nodes can independently calculate a segment route list with specified delay guarantee effect.
+
+Finally, this paper experimentally validates the above two approaches based on the programmable P4 software switch bmv2, building a data centre topology and a carrier topology respectively. The centralised segment route transpoint generation algorithm is set as the control group to calculate the segment route transpoint list using bandwidth only, and it is experimentally verified that the centralised algorithm proposed in this paper reduces the traffic engineering delay in the data centre network and the carrier network by 8.22\% and 3.34\% respectively compared to the comparison group; the control group of the distributed segment route transpoint generation algorithm is set as the distributed shortest path algorithm. The traffic engineering delay of the distributed algorithm nasal comparison group proposed in this paper in the data centre network and the carrier network is reduced by 53.3\% and 65.6\%, respectively, under the loss of certain network throughput, as obtained through experimental verification. The experimental results show that the calculation of segment routing transpoint lists based on delay information can reduce traffic end-to-end delay and provide network layer technical support for delay-sensitive services.
 }
 
 %% 英文关键词，也用 \kwsep 分割
