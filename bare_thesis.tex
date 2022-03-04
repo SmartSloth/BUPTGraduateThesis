@@ -26,6 +26,8 @@
 \usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{listings}
 % \usepackage[table,xcdraw]{xcolor}
 \def\BUPTThesis{\textsc{BUPT}\-\textsc{Thesis}}
 
@@ -55,9 +57,10 @@
 \mainmatter
 %% 用\include{}命令引用各章.tex文件
 \include{ch_intro}
+\include{ch_related}
+\include{ch_algorm}
+\include{ch_expermt}
 \include{ch_concln}
-% \include{ch_expermt}
-\include{ch_sum}
 
 \ifx\usechapbib\undefined
 \bibliographystyle{buptgraduatethesis}

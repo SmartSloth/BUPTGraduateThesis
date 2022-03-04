@@ -21,7 +21,7 @@ PROJECT="buptgraduatethesis"
 # File name of your top-level tex file.
 TARGET="bare_thesis"
 # File name list of tex files for mainmatters.
-MAINMATTERS=("ch_intro" "ch_concln" "ch_sum")
+MAINMATTERS=("ch_intro" "ch_related" "ch_algorm" "ch_expermt" "ch_concln")
 # Driver type to build PDF.
 # 'xetex' for xetex engine;
 DRIVER="xetex"
