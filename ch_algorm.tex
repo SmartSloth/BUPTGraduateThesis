@@ -27,7 +27,7 @@
 
 \begin{figure}[htbp]
 \setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
-\centerline{\includegraphics[width=0.8\textwidth]{./figures/ch3-ark.png}}
+\centerline{\includegraphics[width=0.7\textwidth]{./figures/ch3-ark.png}}
 \caption{集中式段路由航点列表生成算法思路索引结构图}
 \label{fig-ch3-ark}
 \end{figure}
@@ -105,25 +105,41 @@ $s(e)$是一个递增的凸函数，其数值范围为$\left(0,\infty\right)$。
 
 下文将对这两种构造方法进行比较得出最终使用的链路权重公式。
 
-当考虑第一种算法时，目的是当链路完全不拥塞的时候，着重考虑链路中心度，而当链路产生拥塞的时候，考虑链路拥塞度和链路到达率。所以将几个不重要的参数设置为常量，其中$e$是一个有向链接，$\theta$是调整链接属性和链接状态的系数。$\theta$是一个保留参数，在后面对此公式3-4进行分析的实验计算中都取为$0.5$。如何为$\theta$取一个更合适的值，需要根据具体的网络进行调整，因为它对平衡链接属性和链接状态很有用。公式3-4建议使用临界度较高的链路和具有更多可用带宽和较低链路到达率的链路。因此假定到达率$\lambda\left(e\right)$为$0.5$，$\theta$为$0.5$。对于一个给定的链路$c\left(e\right)$是一个常数，所以随着链路流量的逐渐增加，链路权重的增加趋势如图3-3所示。
+当考虑第一种算法时，目的是当链路完全不拥塞的时候，着重考虑链路中心度，而当链路产生拥塞的时候，考虑链路拥塞度和链路到达率。所以将几个不重要的参数设置为常量，其中$e$是一个有向链接，$\theta$是调整链接属性和链接状态的系数。$\theta$是一个保留参数，在后面对此公式3-4进行分析的实验计算中都取为$0.5$。如何为$\theta$取一个更合适的值，需要根据具体的网络进行调整，因为它对平衡链接属性和链接状态很有用。公式3-4建议使用临界度较高的链路和具有更多可用带宽和较低链路到达率的链路。因此假定到达率$\lambda\left(e\right)$为$0.5$，$\theta$为$0.5$。对于一个给定的链路$c\left(e\right)$是一个常数，所以随着链路流量的逐渐增加，链路权重的增加趋势如图3-3中(a)所示。
 
-\begin{figure}[htbp]
-\setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
-\centerline{\includegraphics[width=0.8\textwidth]{./figures/ch3-link-weight-function-1.png}}
-\caption{第一种链路权重算法下链路权重随链路负载增长变化示意图}
-\label{fig-ch3-link-weight-function-1}
-\end{figure}
+\begin{figure*}[t] %, height=3.2cm
+    \centering
+    \hspace{0.00\linewidth}
+    \subfloat[第一种链路权重算法下链路权重增加趋势]{
+        \includegraphics[width=0.46\linewidth]{./figures/ch3-link-weight-function-1.png}
+        \label{fig-ch3-link-weight-function-1}
+    }
+    \hspace{0.00\linewidth}
+    \subfloat[第二种链路权重算法下链路权重增加趋势]{
+        \includegraphics[width=0.46\linewidth]{./figures/ch3-link-weight-function-2.png}
+        \label{ffig-ch3-link-weight-function-2}
+    }
+    \caption{两种链路权重算法下链路权重随链路负载增长变化示意图} 
+    \label{fig:ch3:link-weight-function}
+\end{figure*}
+
+% \begin{figure}[htbp]
+% \setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
+% \centerline{\includegraphics[width=0.8\textwidth]{./figures/ch3-link-weight-function-1.png}}
+% \caption{第一种链路权重算法下链路权重随链路负载增长变化示意图}
+% \label{fig-ch3-link-weight-function-1}
+% \end{figure}
 
 当网络负载较轻时，链路可用带宽和链路到达率都很低，权重函数倾向于参考链路临界值$c\left(e\right)$；当网络负载较重时，链路可用带宽和链路到达率较高，链路权重函数会急剧增加，因此权重函数会倾向于参考链路拥塞指数$s\left(e\right)$和链路到达率$\lambda\left(e\right)$。当网络资源利用饱和时，通过链路拥塞指数$s\left(e\right)$和链路到达率$\lambda\left(e\right)$来确定链路权重是合理的，而不是在拓扑属性下确定链路临界度。
 
-当考虑第二种算法时，目的是当链路几乎不拥塞的时候，着重考虑链路中心度，而当链路产生拥塞的时候，重点考虑链路到达率。这样做是考虑到当链路几乎不拥塞的时候，具有更高链路中心度的链路是可以提供更高联通度的链路，本身就更容易在IP层的哈希中被选中。而当链路产生拥塞的时候，该算法希望能选出那些未来数据包到达率更低的链路，避免竞争。链路权重的增加趋势如图3-4所示。选择链路中心度分别为$0.5$、$0.01$的链路，假设数据包到达率不变分别为$0.5$和$0.01$，将它们两两组合，则可以画出在这4种情况下，使用公式3-5的链路链路权重随链路负载增加的情况。
+当考虑第二种算法时，目的是当链路几乎不拥塞的时候，着重考虑链路中心度，而当链路产生拥塞的时候，重点考虑链路到达率。这样做是考虑到当链路几乎不拥塞的时候，具有更高链路中心度的链路是可以提供更高联通度的链路，本身就更容易在IP层的哈希中被选中。而当链路产生拥塞的时候，该算法希望能选出那些未来数据包到达率更低的链路，避免竞争。链路权重的增加趋势如图3-3中(b)所示。选择链路中心度分别为$0.5$、$0.01$的链路，假设数据包到达率不变分别为$0.5$和$0.01$，将它们两两组合，则可以画出在这4种情况下，使用公式3-5的链路链路权重随链路负载增加的情况。
 
-\begin{figure}[htbp]
-\setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
-\centerline{\includegraphics[width=0.8\textwidth]{./figures/ch3-link-weight-function-2.png}}
-\caption{第二种链路权重算法下链路权重随链路负载增长变化示意图}
-\label{fig-ch3-link-weight-function-2}
-\end{figure}
+% \begin{figure}[htbp]
+% \setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
+% \centerline{\includegraphics[width=0.8\textwidth]{./figures/ch3-link-weight-function-2.png}}
+% \caption{第二种链路权重算法下链路权重随链路负载增长变化示意图}
+% \label{fig-ch3-link-weight-function-2}
+% \end{figure}
 
 只观察$c(e)=0.5,\ \lambda(e)=0.5$（蓝色折线），可以看出控制链路到达率不变，当网络负载较轻时，链路可用带宽较高，$c(e)=0.5$的链路具有较高的链路权重；当网络负载较重时，链路可用带宽低，链路拥塞度高，造成链路权重下降。
 
@@ -237,12 +253,12 @@ Auxiliary graph  $G_\alpha(V_\alpha,E_\alpha)$
 
 贝尔曼-福特算法类似于迪杰斯特拉算法，但它可以处理边可以具有负权重的图。负权重边可以创建负权重循环，即通过回到同一点来减少总路径距离的循环。贝尔曼-福特算法的工作原理是高估从起始顶点到所有其他顶点的路径长度。然后它通过寻找比先前高估的路径更短的新路径来迭代地放宽这些估计。通过对所有顶点重复执行此操作，贝尔曼-福特算法可以保证优化结果。
 
-贝尔曼-福特算法的执行步骤如下：图3-5(a)显示了图$G$的初始状态。最初，除了选定的源顶点$d(a)$设置为$0$之外，所有$d(v)$都设置为$\infty$。图3-5(b)显示了第一个松弛步骤后的结果，$d(b)$更新为$5$,$d(c)$更新为$3$,因为可以找到一个链路加权较小的路径，即通过$d(a)+w(a,b)<d(b)$的顶点$a$到达顶点$b$。等式$p(b,1)＝a$意味着在第一松弛步骤中顶点$b$从顶点$a$被松弛。第二次松弛的结果如图3-5(c)所示。可以确定从$a$到$e$的当前最小权重路径为${a-b-e}$，权重$d(e)=7$。从$a$到$b$的最小权重路径被更新为为${a-c-b}$，权重$d(b)=4$。类似地，第三次松弛的结果如图3-5(d)所示。经过四次松弛步骤，可以得到从$a$到$d$的最小权重路径${a-c-b-e-d}$，如图3-5(e)所示。换句话说，$d(d)$是使用最多四跳之后从源$a$到目标$d$的最小权重。可以使用目标顶点$d$的$p(d)$追溯最终路径。$p(d,4)=e$表示顶点$d$的上一级在第四次松弛步骤中为$e$。因此，可以通过使用图3-5(d)中的$p(e,3)=b$来以减少的跳数继续从顶点$e$进行跟踪工作。同样，在图3-5(c)中检查$p(b,2)=c$。重复此过程，直到通过应用$p(c,1)=a$追溯到源顶点$a$，如图3-5(b)所示。然后可以在${MAX}_{ae}=5$跳约束下获得权重为10的${a-c-b-e-d}$的最终路径。没有跳数限制的情况下，源$a$和目标$d$之间的最小权重路径为${a-c-b-e-f-d}$，权重为9.5，如图3-5(f)所示 \cite{BFOPTI} 。
+贝尔曼-福特算法的执行步骤如下：图3-4(a)显示了图$G$的初始状态。最初，除了选定的源顶点$d(a)$设置为$0$之外，所有$d(v)$都设置为$\infty$。图3-4(b)显示了第一个松弛步骤后的结果，$d(b)$更新为$5$,$d(c)$更新为$3$,因为可以找到一个链路加权较小的路径，即通过$d(a)+w(a,b)<d(b)$的顶点$a$到达顶点$b$。等式$p(b,1)＝a$意味着在第一松弛步骤中顶点$b$从顶点$a$被松弛。第二次松弛的结果如图3-4(c)所示。可以确定从$a$到$e$的当前最小权重路径为${a-b-e}$，权重$d(e)=7$。从$a$到$b$的最小权重路径被更新为为${a-c-b}$，权重$d(b)=4$。类似地，第三次松弛的结果如图3-4(d)所示。经过四次松弛步骤，可以得到从$a$到$d$的最小权重路径${a-c-b-e-d}$，如图3-4(e)所示。换句话说，$d(d)$是使用最多四跳之后从源$a$到目标$d$的最小权重。可以使用目标顶点$d$的$p(d)$追溯最终路径。$p(d,4)=e$表示顶点$d$的上一级在第四次松弛步骤中为$e$。因此，可以通过使用图3-4(d)中的$p(e,3)=b$来以减少的跳数继续从顶点$e$进行跟踪工作。同样，在图3-4(c)中检查$p(b,2)=c$。重复此过程，直到通过应用$p(c,1)=a$追溯到源顶点$a$，如图3-4(b)所示。然后可以在${MAX}_{ae}=5$跳约束下获得权重为10的${a-c-b-e-d}$的最终路径。没有跳数限制的情况下，源$a$和目标$d$之间的最小权重路径为${a-c-b-e-f-d}$，权重为9.5，如图3-4(f)所示 \cite{BFOPTI} 。
 
 \begin{figure}[htbp]
 \setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
 \centerline{\includegraphics[width=1\textwidth]{./figures/ch3-bf.png}}
-\caption{贝尔曼-福特算法示意图}
+\caption{贝尔曼-福特算法示意图 \cite{SRBANDWIDTH1, BFOPTI}}
 \label{fig-ch3-bf}
 \end{figure}
 
@@ -252,7 +268,7 @@ Auxiliary graph  $G_\alpha(V_\alpha,E_\alpha)$
 
 在计算了辅助图中每条链路的权重后，段列表生成算法将计算出尽力满足请求流量延迟要求的完整段路由标签列表。首先描述一下问题，假设网络中的所有节点都是段路由节点，并可能成为请求流量到达的段路由域的第一节点$s$或目的节点$t$。当前有一条流量的源节点和目的节点分别为$s$和$t$，并且需要有一个小于$d_{target}$的延迟。段列表生成算需要在网络存在动态流量的场景下构建段路由标签列表，使得通过这组段列表进行调度的流量有较大的可能实现端到端的时延尽量小，以至于时延小于目标值$d_{target}$。
 
-贝尔曼-福特算法是基于松弛原理的。在每一步的计算中，最优权重路径逐渐被一个较小的新值所取代，直到最后达到最优解。从源节点到目的节点的非环形可达路径在图中最多有$|V|-1$边。贝尔曼-福特算法松弛了所有的链接，所以这个过程需要重复$|V|-1$次。该算法允许通过限制跳数来确定贝尔曼-福特算法是否需要继续。在每次迭代中，该算法将从源节点到目的节点的长度为$x+1$的路径的权重与上一次迭代中长度为$x$的路径的权重进行比较，并记录权重小于两者的路径。并更新最优路径。逐渐放宽路径长度，将得到从给定的源节点到目的节点的最优加权路径。
+贝尔曼-福特算法是基于松弛原理的 \cite{BFOPTI}。在每一步的计算中，最优权重路径逐渐被一个较小的新值所取代，直到最后达到最优解。从源节点到目的节点的非环形可达路径在图中最多有$|V|-1$边。贝尔曼-福特算法松弛了所有的链接，所以这个过程需要重复$|V|-1$次。该算法允许通过限制跳数来确定贝尔曼-福特算法是否需要继续。在每次迭代中，该算法将从源节点到目的节点的长度为$x+1$的路径的权重与上一次迭代中长度为$x$的路径的权重进行比较，并记录权重小于两者的路径。并更新最优路径。逐渐放宽路径长度，将得到从给定的源节点到目的节点的最优加权路径。
 
 \subsection{算法时间复杂度分析}
 
@@ -303,7 +319,7 @@ Auxiliary graph  $G_\alpha(V_\alpha,E_\alpha)$
 
 \begin{figure}[htbp]
 \setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
-\centerline{\includegraphics[width=0.8\textwidth]{./figures/ch4-ark.png}}
+\centerline{\includegraphics[width=0.7\textwidth]{./figures/ch4-ark.png}}
 \caption{分布式段路由航点列表生成算法思路索引结构图}
 \label{fig-ch4-ark}
 \end{figure}
@@ -452,7 +468,7 @@ $S_1$接收到这些信息后会将其更新在自己的时延矩阵中：
 
 \begin{figure}[htbp]
 \setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
-\centerline{\includegraphics[width=0.6\textwidth]{./figures/ch4-penalty-value.png}}
+\centerline{\includegraphics[width=0.5\textwidth]{./figures/ch4-penalty-value.png}}
 \caption{惩罚值和半衰期随时间变化示意图}
 \label{fig-ch4-penalty-value}
 \end{figure}

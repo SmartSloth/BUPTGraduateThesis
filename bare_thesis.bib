@@ -201,6 +201,39 @@
   doi={10.1109/COMST.2020.3036826}
 }
 
+@ARTICLE{SRUSAGE1,
+  author={Ventre, Pier Luigi and Tajiki, Mohammad Mahdi and Salsano, Stefano and Filsfils, Clarence},
+  journal={IEEE Transactions on Network and Service Management}, 
+  title={SDN Architecture and Southbound APIs for IPv6 Segment Routing Enabled Wide Area Networks}, 
+  year={2018},
+  volume={15},
+  number={4},
+  pages={1378-1392},
+  doi={10.1109/TNSM.2018.2876251}
+}
+
+@INPROCEEDINGS{SRUSAGE2,
+  author={Abdelsalam, Ahmed and Clad, Francois and Filsfils, Clarence and Salsano, Stefano and Siracusano, Giuseppe and Veltri, Luca},
+  booktitle={2017 IEEE Conference on Network Softwarization (NetSoft)}, 
+  title={Implementation of virtual network function chaining through segment routing in a linux-based NFV infrastructure}, 
+  year={2017},
+  volume={},
+  number={},
+  pages={1-5},
+  doi={10.1109/NETSOFT.2017.8004208}
+}
+
+@ARTICLE{SRUSAGE3,
+  author={Zheng, Qitao and Tang, Shaofei and Chen, Bofan and Zhu, Zuqing},
+  journal={IEEE Transactions on Network and Service Management}, 
+  title={Highly-Efficient and Adaptive Network Monitoring: When INT Meets Segment Routing}, 
+  year={2021},
+  volume={18},
+  number={3},
+  pages={2587-2597},
+  doi={10.1109/TNSM.2021.3069000}
+}
+
 @INPROCEEDINGS{SIDLENGTHPROVE,
   author={Davoli, Luca and Veltri, Luca and Ventre, Pier Luigi and Siracusano, Giuseppe and Salsano, Stefano},
   booktitle={2015 Fourth European Workshop on Software Defined Networks}, 
@@ -398,15 +431,17 @@
   organization={IEEE}
 }
 
-@ARTICLE{SRBANDWIDTH5,
-  title={A declarative and expressive approach to control forwarding paths in carrier-grade networks},
-  author={Hartert, Renaud and Vissicchio, Stefano and Schaus, Pierre and Bonaventure, Olivier and Filsfils, Clarence and Telkamp, Thomas and Francois, Pierre},
-  journal={ACM SIGCOMM computer communication review},
-  volume={45},
-  number={4},
-  pages={15--28},
-  year={2015},
-  publisher={ACM New York, NY, USA}
+@INPROCEEDINGS{SRBANDWIDTH5,
+  author="Hartert, Renaud and Schaus, Pierre and Vissicchio, Stefano and Bonaventure, Olivier",
+  editor="Pesant, Gilles",
+  title="Solving Segment Routing Problems with Hybrid Constraint Programming Techniques",
+  booktitle="Principles and Practice of Constraint Programming",
+  year="2015",
+  publisher="Springer International Publishing",
+  address="Cham",
+  pages="592--608",
+  abstract="Segment routing is an emerging network technology that exploits the existence of several paths between a source and a destination to spread the traffic in a simple and elegant way. The major commercial network vendors already support segment routing, and several Internet actors are ready to use segment routing in their network. Unfortunately, by changing the way paths are computed, segment routing poses new optimization problems which cannot be addressed with previous research contributions. In this paper, we propose a new hybrid constraint programming framework to solve traffic engineering problems in segment routing. We introduce a new representation of path variables which can be seen as a lightweight relaxation of usual representations. We show how to define and implement fast propagators on these new variables while reducing the memory impact of classical traffic engineering models. The efficiency of our approach is confirmed by experiments on real and artificial networks of big Internet actors.",
+  isbn="978-3-319-23219-5"
 }
 
 @INPROCEEDINGS{SRBANDWIDTH6,
@@ -653,14 +688,23 @@
 }
 
 @ARTICLE{DEFO,
-  author={Ventre, Pier Luigi and Salsano, Stefano and Polverini, Marco and Cianfrani, Antonio and Abdelsalam, Ahmed and Filsfils, Clarence and Camarillo, Pablo and Clad, Francois},
-  journal={IEEE Communications Surveys   Tutorials}, 
-  title={Segment Routing: A Comprehensive Survey of Research Activities, Standardization Efforts, and Implementation Results}, 
-  year={2021},
-  volume={23},
-  number={1},
-  pages={182-221},
-  doi={10.1109/COMST.2020.3036826}
+  author = {Hartert, Renaud and Vissicchio, Stefano and Schaus, Pierre and Bonaventure, Olivier and Filsfils, Clarence and Telkamp, Thomas and Francois, Pierre},
+  title = {A Declarative and Expressive Approach to Control Forwarding Paths in Carrier-Grade Networks},
+  year = {2015},
+  issue_date = {October 2015},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  volume = {45},
+  number = {4},
+  issn = {0146-4833},
+  url = {https://doi.org/10.1145/2829988.2787495},
+  doi = {10.1145/2829988.2787495},
+  abstract = {SDN simplifies network management by relying on declarativity (high-level interface) and expressiveness (network flexibility). We propose a solution to support those features while preserving high robustness and scalability as needed in carrier-grade networks. Our solution is based on (i) a two-layer architecture separating connectivity and optimization tasks; and (ii) a centralized optimizer called framework, which translates high-level goals expressed almost in natural language into compliant network configurations. Our evaluation on real and synthetic topologies shows that framework improves the state of the art by (i) achieving better trade-offs for classic goals covered by previous works, (ii) supporting a larger set of goals (refined traffic engineering and service chaining), and (iii) optimizing large ISP networks in few seconds. We also quantify the gains of our implementation, running Segment Routing on top of IS-IS, over possible alternatives (RSVP-TE and OpenFlow).},
+  journal = {SIGCOMM Comput. Commun. Rev.},
+  month = {aug},
+  pages = {15–28},
+  numpages = {14},
+  keywords = {service chaining, segment routing (sr), isp, software defined networking (sdn), mpls, traffic engineering, optimization}
 }
 
 @ARTICLE{SURVEY1,
@@ -878,11 +922,11 @@
   keywords = {datacenter network, failure detection, probe}
 }
 
-@MASTERSTHESIS{CNTE,
-  title={基于 SDN 的分段路由技术研究},
+@DISSERTATION{CNTE,
   author={沈少辉},
-  year={2018},
-  school={电子科技大学}
+  title={基于 SDN 的分段路由技术研究},
+  school={电子科技大学},
+  year={2018}
 }
 
 @ARTICLE{BFOPTI,

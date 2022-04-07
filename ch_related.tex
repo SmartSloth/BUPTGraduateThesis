@@ -33,7 +33,7 @@
 
 \begin{figure}[htbp]
 \setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
-\centerline{\includegraphics[width=0.9\textwidth]{./figures/ch2-kinds-of-SID.png}}
+\centerline{\includegraphics[width=0.8\textwidth]{./figures/ch2-kinds-of-SID.png}}
 \caption{段标签的类型及其用途示意图}
 \label{fig-ch2-kinds-of-SID}
 \end{figure}
@@ -105,6 +105,13 @@ MTU & 1520B & 1612B \\ \hline
 因此可见对时延数据进行带内遥测的技术已经相当成熟，时延也逐步取代带宽成为网络中更值得关注的网络服务性能类型。这在拥塞控制技术中已经得到了相当多的应用。例如谷歌2020年获得的Sigcomm最佳论文的Swift模型 \cite{SWIFT} 中就使用的主要拥塞信号就是时延，因为它满足了工程师对拥塞感知的所有要求。谷歌在Swift这篇论文中指出，网络往返时延可以使用现代硬件精确测量，并且它提供了多位拥塞信号，即它不仅对拥塞的状态进行编码，而且对拥塞的程度进行编码。Swift进一步分解了端到端往返时延，以将架构与主机问题分开；通过结合网卡硬件中的时间戳和基于轮询的传输（如Pony Express），它使延迟测量更加精确。Swift使用多个网卡和主机时间戳来分离延迟的组成部分，并进而将网卡收方向数据包延迟和处理时间相加以获得全程排队时延，并通过 \gls*{ACK} 数据包上的报文头将此延迟反映给发送方。
 
 因此使用带内遥测技术作为时延采集的方式是可行的，本研究在后文中不对带内遥测做过多分析，只是使用这一项技术作为时延信息采集的渠道。在实验验证阶段也是采用符合逻辑的遥测方式获取时延。
+
+% \begin{figure}[htbp]
+% \setlength{\abovecaptionskip}{15pt plus 3pt minus 2pt}
+% \centerline{\includegraphics[width=0.95\textwidth]{./figures/ch2-research-relationship.png}}
+% \caption{各部分研究内容关系图}
+% \label{fig-ch2-research-relationship}
+% \end{figure}
 
 % 测试所有参考文献类型\cite{CITATION_BOOK,CITATION_ARTICLE,CITATION_PROCEEDINGS,CITATION_INPROCEEDINGS,CITATION_TECHREPORT,CITATION_STANDARD,CITATION_PATENT,CITATION_NEWSPAPER,CITATION_ELECTRONIC,SRSURVEYS}。
 
